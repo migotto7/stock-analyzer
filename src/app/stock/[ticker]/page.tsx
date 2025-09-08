@@ -29,7 +29,7 @@ interface StockData {
 
 async function fetchStock(ticker: string): Promise<StockData | null> {
     try {
-        const res = await fetch(`http://localhost:3001/api/acoes/${ticker}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/acoes/${ticker}`);
         const data = await res.json();
         return data;
     } catch (err) {

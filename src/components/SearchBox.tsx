@@ -24,7 +24,7 @@ export default function SearchBox() {
     useEffect(() => {
         if (query.length >= 2) {
             axios
-                .get(`http://localhost:3001/api/search/${query}`)
+                .get(`${process.env.NEXT_PUBLIC_API_URL}/search/${query}`)
                 .then((res) => {
                     if (res.data.stocks) {
                         setSuggestions(res.data.stocks.slice(0, 4));
