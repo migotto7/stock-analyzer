@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type Suggestion = {
     stock: string;
@@ -39,7 +40,7 @@ export default function SearchBox() {
                 setMoved(true);
             })
             .catch((err) => {
-                if(!axios.isCancel(err)) {
+                if (!axios.isCancel(err)) {
                     setSuggestions([]);
                     setMoved(false);
                 }
@@ -89,20 +90,23 @@ export default function SearchBox() {
                                 className="py-6 px-2 mx-4 my-5 flex items-center hover:bg-gray-800 cursor-pointer"
                                 onClick={() => handleClick(s.stock)}
                             >
-                                <img src={s.logo} alt={s.name} className="w-10 h-10 rounded mr-4" />
-                                <div className="flex flex-col">
-                                    <span className="font-semibold">{s.stock}</span>
-                                    <span className="text-sm text-gray-400">{s.name}</span>
-                                </div>
-                                <div className="ml-auto text-sm flex flex-col items-end">
-                                    <span className="font-medium text-base">R$ {s.close.toFixed(2)}</span>
-                                    <span
-                                        className={`ml-2 ${s.change >= 0 ? "text-green-400" : "text-red-400"
-                                            }`}
-                                    >
-                                        {s.change >= 0 ? "↑" : "↓"} {Math.abs(s.change).toFixed(2)}%
-                                    </span>
-                                </div>
+                                <a className="w-full flex items-center" href={`/stock/${s.stock}`}>
+
+                                    <Image src={s.logo} alt={s.name} width={40} height={40} className="rounded mr-4" />
+                                    <div className="flex flex-col">
+                                        <span className="font-semibold">{s.stock}</span>
+                                        <span className="text-sm text-gray-400">{s.name}</span>
+                                    </div>
+                                    <div className="ml-auto text-sm flex flex-col items-end">
+                                        <span className="font-medium text-base">R$ {s.close.toFixed(2)}</span>
+                                        <span
+                                            className={`ml-2 ${s.change >= 0 ? "text-green-400" : "text-red-400"
+                                                }`}
+                                        >
+                                            {s.change >= 0 ? "↑" : "↓"} {Math.abs(s.change).toFixed(2)}%
+                                        </span>
+                                    </div>
+                                </a>
                             </li>
                         ))}
                     </ul>

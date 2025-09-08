@@ -11,9 +11,10 @@ export default function HomeButton() {
     }
 
     return (
-        <TrendingUp 
-            className="absolute top-6 left-6 w-10 h-10 text-white cursor-pointer" 
-            onClick={handleClick}    
-        />
+        <button onClick={handleClick} aria-label="home button">
+            <TrendingUp
+                className="absolute top-6 left-6 w-10 h-10 text-white"
+            />
+        </button>
     )
 }

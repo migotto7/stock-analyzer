@@ -39,7 +39,7 @@ export default function BarTopStocks() {
     }, []);
 
     useAnimationFrame((t, delta) => {
-        if(!paused) {
+        if (!paused) {
             const move = (delta / 1000) * 50;
             const totalWidth = Math.max(data.length * 200, 1);
             x.set((x.get() - move) % totalWidth);
@@ -49,13 +49,13 @@ export default function BarTopStocks() {
     return (
         <div className="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 overflow-hidden">
             <motion.div
-                style={{x}}
+                style={{ x }}
                 className="flex gap-8 py-2"
                 onMouseEnter={() => setPaused(true)}
                 onMouseLeave={() => setPaused(false)}
             >
                 {[...data, ...data].map((stock, i) => (
-                    <div key={i} 
+                    <div key={i}
                         className="flex flex-col gap-y-2 gap-2 min-w-[180px] px-2 py-5 cursor-pointer hover:bg-gray-700/40 rounded-xl"
                         onClick={() => router.push(`/stock/${stock.stock}`)}
                     >
@@ -66,11 +66,13 @@ export default function BarTopStocks() {
                         <div className="flex gap-2 ites">
                             <span className="text-md text-gray-300">R$ {stock.close.toFixed(2)}</span>
                             <span
-                                className={`text-md font-bold ${stock.change >= 0 ? "text-green-400" : "text-red-400"
+                                className={`text-md font-bold ${Number.isFinite(stock?.change) && (stock.change >= 0) ? "text-green-400" : "text-red-400"
                                     }`}
                             >
-                                {stock.change >= 0 ? "+" : ""}
-                                {stock.change.toFixed(2)}%
+                                {Number.isFinite(stock?.change)
+                                    ? `${stock.change >= 0 ? "+" : ""} ${stock.change.toFixed(2)}%`
+                                    : "-"
+                                }
                             </span>
                         </div>
                     </div>
