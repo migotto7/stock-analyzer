@@ -22,23 +22,33 @@ export default function SearchBox() {
     const router = useRouter();
 
     useEffect(() => {
-        if (query.length >= 2) {
-            axios
-                .get(`${process.env.NEXT_PUBLIC_API_URL}/search/${query}`)
-                .then((res) => {
-                    if (res.data.stocks) {
-                        setSuggestions(res.data.stocks.slice(0, 4));
-                    } else {
-                        setSuggestions([]);
-                    }
-                })
-                .catch(() => setSuggestions([]));
-
-            setMoved(true);
-        } else {
+        if (query.length < 2) {
             setSuggestions([]);
-            setMoved(false)
+            setMoved(false);
+            return;
         }
+
+        const source = axios.CancelToken.source();
+
+        axios
+            .get(`${process.env.NEXT_PUBLIC_API_URL}/search/${query}`, {
+                cancelToken: source.token,
+            })
+            .then((res) => {
+                setSuggestions(res.data.stocks?.slice(0, 4) || []);
+                setMoved(true);
+            })
+            .catch((err) => {
+                if(!axios.isCancel(err)) {
+                    setSuggestions([]);
+                    setMoved(false);
+                }
+            });
+
+        return () => {
+            source.cancel();
+        }
+
     }, [query]);
 
     const handleClick = (stock: string) => {

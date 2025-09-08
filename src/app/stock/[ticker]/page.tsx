@@ -1,6 +1,7 @@
 import StockBarChart from "@/components/StockBarChart";
 import { HistoricalDataPrice } from "@/type/HistoricalDataPrice";
 import { MoveUp, MoveDown, ChartColumnIncreasing } from "lucide-react";
+import Image from "next/image";
 
 interface StockProps {
     params: {
@@ -50,7 +51,7 @@ export default async function StockPage({ params }: StockProps) {
     return (
         <div className="p-8 max-w-5xl mx-auto bg-background/55 backdrop-blur-md border border-white/20  rounded-xl my-10">
             <div className="flex items-center mb-6">
-                <img src={stock.logo} alt={stock.shortName} className="mr-6 rounded" />
+                <Image src={stock.logo} alt={stock.shortName} width={50} height={50} className="mr-6 rounded" />
                 <h1 className="text-3xl font-bold text-gray-100">{stock.longName} ({stock.ticker})</h1>
             </div>
 
