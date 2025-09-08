@@ -6,8 +6,20 @@ import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+interface DataStock {
+    stock: string;
+    name: string;
+    close: number;
+    change: number;
+    volume: number;
+    market_cap: number;
+    logo: string;
+    sector: string;
+    type: string;
+}
+
 export default function BarTopStocks() {
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<DataStock[]>([]);
     const x = useMotionValue(0);
     const [paused, setPaused] = useState(false)
     const router = useRouter();
