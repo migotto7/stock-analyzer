@@ -50,13 +50,13 @@ export default function BarTopStocks() {
         <div className="fixed bottom-0 left-0 w-full bg-gray-800 border-t border-gray-700 overflow-hidden">
             <motion.div
                 style={{ x }}
-                className="flex gap-8 py-2"
+                className="flex gap-8 py-1 sm:py-2"
                 onMouseEnter={() => setPaused(true)}
                 onMouseLeave={() => setPaused(false)}
             >
                 {[...data, ...data].map((stock, i) => (
                     <div key={i}
-                        className="flex flex-col gap-y-2 gap-2 min-w-[180px] px-2 py-5 cursor-pointer hover:bg-gray-700/40 rounded-xl"
+                        className="flex flex-col gap-y-2 gap-2 min-w-[180px] sm:min-w-[150px] md:min-w-[200px] px-2 py-3 sm:py-5 cursor-pointer hover:bg-gray-700/40 rounded-xl"
                         onClick={() => router.push(`/stock/${stock.stock}`)}
                     >
                         <div className="flex gap-2 items-center">
