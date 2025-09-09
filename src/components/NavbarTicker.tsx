@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { Suggestion } from "@/type/Suggestion";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function NavbarTicker() {
     const [query, setQuery] = useState("");
@@ -44,14 +45,13 @@ export default function NavbarTicker() {
 
     return (
         <nav className="mx-auto max-w-5xl flex">
-            <a href="/" className="w-[10%] h-20 flex items-center justify-center border-b border-l border-r rounded-b-3xl border-white/20 
+            <Link href="/" className="w-[10%] h-20 flex items-center justify-center border-b border-l border-r rounded-b-3xl border-white/20 
                     hover:bg-gray-500 focus:bg-gray-500
                     hover:border-0 
                     transition-all duration-300 ease-in-out
-                    hover:h-22 focus:h-22
-                ">
+                    hover:h-22 focus:h-22">
                 <Home className="w-8 h-8 text-white" />
-            </a>
+            </Link>
             <a className="w-[90%] ml-4 h-20 relative">
                 <div className="
                         w-full h-full py-6 flex items-center border-b border-l border-r rounded-b-3xl border-white/20 text-white px-6
@@ -75,7 +75,7 @@ export default function NavbarTicker() {
                                 key={idx}
                                 className="py-4 px-2 mx-2 sm:mx-4 my-3 flex items-center hover:bg-gray-600 cursor-pointer"
                             >
-                                <button className="w-full flex items-center" onClick={() => handleClick(s.stock)}>
+                                <button className="w-full flex items-center cursor-pointer" onClick={() => handleClick(s.stock)}>
                                     <Image src={s.logo} alt={s.name} width={32} height={32} className="rounded mr-4" />
                                     <div className="flex flex-col w-[60%] items-start">
                                         <span className="font-semibold text-sm sm:text-base">{s.stock}</span>

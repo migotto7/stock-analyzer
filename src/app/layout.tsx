@@ -1,6 +1,5 @@
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import HomeButton from "@/components/HomeButton";
 import { Analytics } from "@vercel/analytics/next";
 
 const outfit = Outfit({

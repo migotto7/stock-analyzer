@@ -1,7 +1,7 @@
 import NavbarTicker from "@/components/NavbarTicker";
 import StockBarChart from "@/components/StockBarChart";
 import { HistoricalDataPrice } from "@/type/HistoricalDataPrice";
-import { MoveUp, MoveDown, ChartColumnIncreasing, DollarSign, Percent, Landmark, HandCoins, ArrowBigUp } from "lucide-react";
+import { MoveUp, MoveDown, ChartColumnIncreasing, DollarSign, Percent, Landmark, HandCoins } from "lucide-react";
 import Image from "next/image";
 
 interface StockProps {
