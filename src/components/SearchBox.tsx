@@ -3,24 +3,13 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { Search } from "lucide-react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
-
-type Suggestion = {
-    stock: string;
-    name: string;
-    logo: string;
-    close: number;
-    change: number;
-    sector: string | null;
-};
+import type { Suggestion } from "@/type/Suggestion";
 
 export default function SearchBox() {
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
     const [moved, setMoved] = useState(false);
-
-    const router = useRouter();
 
     useEffect(() => {
         if (query.length < 2) {
@@ -52,22 +41,18 @@ export default function SearchBox() {
 
     }, [query]);
 
-    const handleClick = (stock: string) => {
-        router.push(`/stock/${stock}`)
-    }
-
     return (
-        <div className="flex flex-col items-center w-full">
+        <div className="flex flex-col items-center w-full justify-center">
             <div
-                className={`w-full flex flex-col items-center transition-all duration-500 ${moved ? "translate-y-[-150px] mt-20" : "translate-y-0"
+                className={`w-full flex flex-col items-center transition-transform duration-500 ${moved ? "translate-y-[-60px]" : "translate-y-0"
                     }`}
             >
-                <h1 className="text-3xl font-bold mb-6 text-white">Ibovespa Stock Analyzer</h1>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-white text-center">Ibovespa Stock Analyzer</h1>
                 <div className="
-                        flex items-center w-[900px] max-w-[95%]  
-                        justify-between px-4 py-6 rounded-xl
+                        flex items-center w-full max-w-[95%] sm:max-w-[500] md:max-w-[600] lg:max-w-[800] 
+                        justify-between px-4 py-6 rounded-xl mx-2
                         bg-background/55 backdrop-blur-md border border-white/20 
-                        placeholder-white/60 focus-within:outline-none focus-within:ring-1 focus-within:ring-white/30 shadow-lg
+                        placeholder-white/60 focus-within:outline-none focus-within:ring-1 focus-within:ring-white/30 shadow-lg text-white
                     "
                 >
                     <input
@@ -79,26 +64,25 @@ export default function SearchBox() {
                             flex-1 bg-transparent outline-none text-lg placeholder-gray-400
                         "
                     />
-                    <Search className="w-6 h-6 text-background/70" />
+                    <Search className="w-5 h-5 text-background/70 sm:w-6 sm:h-6" />
                 </div>
 
                 {suggestions.length > 0 && (
-                    <ul className="w-[900px] max-w-[95%] mt-2 bg-background/55 divide-y divide-gray-400 rounded-xl shadow-lg overflow-hidden border border-white/20">
+                    <ul className="w-full max-w-[95%] sm:max-w-[500] md:max-w-[600px] lg:max-w-[800] mt-2 bg-background/55 divide-y divide-gray-400 rounded-xl shadow-lg overflow-hidden border border-white/20">
                         {suggestions.map((s, idx) => (
                             <li
                                 key={idx}
-                                className="py-6 px-2 mx-4 my-5 flex items-center hover:bg-gray-800 cursor-pointer"
-                                onClick={() => handleClick(s.stock)}
+                                className="py-4 px-2 mx-2 sm:mx-4 my-3 flex items-center hover:bg-gray-800 cursor-pointer"
                             >
                                 <a className="w-full flex items-center" href={`/stock/${s.stock}`}>
 
-                                    <Image src={s.logo} alt={s.name} width={40} height={40} className="rounded mr-4" />
-                                    <div className="flex flex-col">
-                                        <span className="font-semibold">{s.stock}</span>
-                                        <span className="text-sm text-gray-400">{s.name}</span>
+                                    <Image src={s.logo} alt={s.name} width={32} height={32} className="rounded mr-4" />
+                                    <div className="flex flex-col w-[60%]">
+                                        <span className="font-semibold text-sm sm:text-base">{s.stock}</span>
+                                        <span className="text-xs sm:text-sm text-gray-400">{s.name}</span>
                                     </div>
-                                    <div className="ml-auto text-sm flex flex-col items-end">
-                                        <span className="font-medium text-base">R$ {s.close.toFixed(2)}</span>
+                                    <div className="ml-auto text-xs sm:text-sm flex flex-col items-end">
+                                        <span className="font-medium text-sm sm:text-base">R$ {s.close.toFixed(2)}</span>
                                         <span
                                             className={`ml-2 ${s.change >= 0 ? "text-green-400" : "text-red-400"
                                                 }`}
