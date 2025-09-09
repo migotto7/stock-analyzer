@@ -1,6 +1,7 @@
+import NavbarTicker from "@/components/NavbarTicker";
 import StockBarChart from "@/components/StockBarChart";
 import { HistoricalDataPrice } from "@/type/HistoricalDataPrice";
-import { MoveUp, MoveDown, ChartColumnIncreasing } from "lucide-react";
+import { MoveUp, MoveDown, ChartColumnIncreasing, DollarSign, Percent, Landmark, HandCoins, ArrowBigUp } from "lucide-react";
 import Image from "next/image";
 
 interface StockProps {
@@ -45,97 +46,122 @@ export default async function StockPage({ params }: StockProps) {
 
     if (!stock) return <div>Erro ao carregar dados da ação</div>
 
-    const isBuyOpportunity = stock.regularMarketPrice <= stock.fiftyTwoWeekLow * 1.1;
-    const price12Months = ((stock.regularMarketPrice - stock.fiftyTwoWeekLow) / (stock.fiftyTwoWeekHigh - stock.fiftyTwoWeekLow)) * 100;
+    const fairPrice = (stock.earningsPerShare * stock.priceEarnings).toFixed(2);
 
     return (
-        <div className="p-8 max-w-5xl mx-auto bg-background/55 backdrop-blur-md border border-white/20  rounded-xl my-10">
-            <div className="flex items-center mb-6">
-                <Image src={stock.logo} alt={stock.shortName} width={50} height={50} className="mr-6 rounded" />
-                <h1 className="text-3xl font-bold text-gray-100">{stock.longName} ({stock.ticker})</h1>
-            </div>
+        <div>
+            <NavbarTicker />
+            <div className="p-8 max-w-5xl mx-auto bg-background/55 backdrop-blur-md border border-white/20 rounded-xl my-6">
+                <div tabIndex={0} className="flex items-center mb-6">
+                    <Image src={stock.logo} alt={stock.shortName} width={50} height={50} className="mr-6 rounded" />
+                    <h1 className="text-3xl font-bold text-gray-100">{stock.longName} ({stock.ticker})</h1>
+                </div>
 
-            <div className="flex justify-between gap-8 mb-8">
-                <div className="bg-gray-500 rounded-lg flex flex-col items-center w-40">
-                    <div className="w-full px-4 py-2 rounded-t-lg text-center bg-gray-700">
-                        <span className="text-gray-100">Preço atual</span>
+                <div className="flex justify-between gap-5 mb-8 h-[120px]">
+                    <div tabIndex={0} className="bg-gray-800 w-full rounded-xl flex items-center px-3">
+                        <div className="bg-green-900 w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <DollarSign className="text-green-500" />
+                        </div>
+                        <div className="mx-4">
+                            <span className="text-md text-gray-300">Preço atual</span>
+                            <h2 className="text-white text-xl font-semibold pt-2">R$ {stock.regularMarketPrice.toFixed(2)}</h2>
+                        </div>
                     </div>
-                    <h2 className="text-2xl text-white px-6 py-4 font-semibold">R$ {stock.regularMarketPrice.toFixed(2)}</h2>
-                </div>
-                <div className="bg-gray-500 rounded-lg flex flex-col items-center w-40">
-                    <div className="w-full px-4 py-2 rounded-t-lg text-center bg-gray-700">
-                        <span className="text-gray-100">Variação (hoje)</span>
+                    <div tabIndex={0} className="bg-gray-800 w-full rounded-xl flex items-center px-3">
+                        <div className="bg-emerald-900 w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <Percent className="text-emerald-500" />
+                        </div>
+                        <div className="mx-4">
+                            <span className="text-md text-gray-300">Variação</span>
+                            <h2 className={`text-xl font-semibold pt-2 flex items-center ${stock.regularMarketChange >= 0 ? "text-green-500" : "text-red-500"}`}>
+                                {stock.regularMarketChangePercent.toFixed(2)}% {stock.regularMarketChange >= 0 ? <MoveUp /> : <MoveDown />}
+                            </h2>
+                        </div>
                     </div>
-                    <h2 className={`text-2xl px-6 py-4 font-semibold flex items-center ${stock.regularMarketChange >= 0 ? "text-green-500" : "text-red-500"}`}>
-                        {stock.regularMarketChangePercent.toFixed(2)}% {stock.regularMarketChange >= 0 ? <MoveUp /> : <MoveDown />}
-                    </h2>
-                </div>
-                <div className="bg-gray-500 rounded-lg flex flex-col items-center w-40">
-                    <div className="w-full px-4 py-2 rounded-t-lg text-center bg-gray-700">
-                        <span className="text-gray-100">P/L</span>
+                    <div tabIndex={0} className="bg-gray-800 w-full rounded-xl flex items-center px-3">
+                        <div className="bg-teal-900 w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <Landmark className="text-teal-500" />
+                        </div>
+                        <div className="mx-4">
+                            <span className="text-md text-gray-300">P/L</span>
+                            <h2 className="text-white text-xl font-semibold pt-2">{stock.priceEarnings.toFixed(2)}</h2>
+                        </div>
                     </div>
-                    <h2 className="text-2xl px-6 py-4 text-white font-semibold">
-                        {stock.priceEarnings.toFixed(2)}
-                    </h2>
-                </div>
-                <div className="bg-gray-500 rounded-lg flex flex-col items-center w-40">
-                    <div className="w-full px-4 py-2 rounded-t-lg text-center bg-gray-700">
-                        <span className="text-gray-100">EPS</span>
-                    </div>
-                    <h2 className="text-2xl px-6 py-4 text-white font-semibold">
-                        {stock.earningsPerShare.toFixed(2)}
-                    </h2>
-                </div>
-                <div className="bg-gray-500 rounded-lg flex flex-col items-center w-40">
-                    <div className="w-full px-4 py-2 rounded-t-lg text-center bg-gray-700">
-                        <span className="text-gray-100">Compra</span>
-                    </div>
-                    <h2 className={`text-2xl px-6 py-4 font-semibold ${isBuyOpportunity ? "text-green-500" : "text-yellow-500"}`}>
-                        {isBuyOpportunity ? "Sim" : "Não"}
-                    </h2>
-                </div>
-            </div>
-            {/* Exemplo de gráfico: preço intraday */}
-            <div className="mb-8 w-full">
-                <div className="bg-gray-500 rounded-lg flex flex-col items-center ">
-                    <div className="w-full px-4 py-2 rounded-t-lg text-center bg-gray-700">
-                        <span className="text-gray-100">Faixa do dia</span>
-                    </div>
-                    <div className="p-4 rounded text-white">
-                        <p>Min: R$ {stock.regularMarketDayLow.toFixed(2)}</p>
-                        <p>Max: R$ {stock.regularMarketDayHigh.toFixed(2)}</p>
+                    <div tabIndex={0} className="bg-gray-800 w-full rounded-xl flex items-center px-3">
+                        <div className="bg-orange-900 w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <HandCoins className="text-orange-500" />
+                        </div>
+                        <div className="mx-4">
+                            <span className="text-md text-gray-300">EPS</span>
+                            <h2 className="text-white text-xl font-semibold pt-2">{stock.earningsPerShare.toFixed(2)}</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            {/* Faixa 52 semanas */}
-            <div className="mb-8">
-                <div className="flex text-center justify-center bg-gray-700 py-4 text-gray-100 text-xl font-bold rounded-t-lg mb-4">
-                    <ChartColumnIncreasing />
-                    <h3 className="ml-4">Faixa 52 semanas</h3>
+                <div className="flex justify-between gap-5 mb-8 h-[120px]">
+                    <div tabIndex={0} className="bg-gray-800 w-full px-4 py-5 rounded-xl">
+                        <span className="text-md text-gray-300">Faixa do dia</span>
+                        <div className="my-4">
+                            <div className="w-full bg-gray-500 h-3 rounded overflow-hidden relative">
+                                <div
+                                    className="absolute top-1/2 -translate-y-1/2 w-2 h-3 bg-green-500 shadow-lg"
+                                    style={{
+                                        left: `${((stock.regularMarketPrice - stock.regularMarketDayLow) /
+                                            (stock.regularMarketDayHigh - stock.regularMarketDayLow)) * 100}%`,
+                                        transform: "translateX(-50%)",
+                                    }}
+                                />
+                            </div>
+                            <div className="flex justify-between text-sm mt-2 text-gray-300">
+                                <span>R$ {stock.regularMarketDayLow.toFixed(2)}</span>
+                                <span>R$ {stock.regularMarketDayHigh.toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div tabIndex={0} className="bg-gray-800 w-full px-4 py-5 rounded-xl">
+                        <span className="text-md text-gray-300">Faixa 52 semanas</span>
+                        <div className="my-4">
+                            <div className="w-full bg-gray-500 h-3 rounded overflow-hidden relative">
+                                <div
+                                    className="absolute top-1/2 -translate-y-1/2 w-2 h-3 bg-green-500 shadow-lg"
+                                    style={{
+                                        left: `${((stock.regularMarketPrice - stock.fiftyTwoWeekLow) /
+                                            (stock.fiftyTwoWeekHigh - stock.fiftyTwoWeekLow)) * 100}%`,
+                                        transform: "translateX(-50%)",
+                                    }}
+                                />
+                            </div>
+                            <div className="flex justify-between text-sm mt-2 text-gray-300">
+                                <span>R$ {stock.fiftyTwoWeekLow.toFixed(2)}</span>
+                                <span>R$ {stock.fiftyTwoWeekHigh.toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div tabIndex={0} className="bg-gray-800 w-full px-4 py-5 rounded-xl">
+                        <span className="text-md text-gray-300">Preço justo</span>
+                        <div className="my-4">
+                            <div className="w-full bg-gray-500 h-3 rounded overflow-hidden relative">
+                                <div
+                                    className="absolute top-1/2 -translate-y-1/2 w-2 h-3 bg-green-500 shadow-lg"
+                                    style={{
+                                        left: `${fairPrice}`,
+                                        transform: "translateX(-50%)",
+                                    }}
+                                />
+                            </div>
+                            <div className="flex justify-between text-sm mt-2 text-gray-300">
+                                <span>R$ {stock.fiftyTwoWeekLow.toFixed(2)}</span>
+                                <span>R$ {stock.fiftyTwoWeekHigh.toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="w-full bg-gray-500 h-4 rounded overflow-hidden relative">
-                    {/* Marcador do preço atual */}
-                    <div
-                        className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-gray-300 bg-gray-600 shadow-lg"
-                        style={{
-                            left: `${((stock.regularMarketPrice - stock.fiftyTwoWeekLow) /
-                                (stock.fiftyTwoWeekHigh - stock.fiftyTwoWeekLow)) * 100}%`,
-                            transform: "translateX(-50%)",
-                        }}
-                    />
+                <div className="mb-8 rounded-xl">
+                    <div className="flex text-center justify-center bg-gray-800 py-4 text-gray-300 text-md rounded-t-lg">
+                        <ChartColumnIncreasing />
+                        <span className="ml-2">Histórico de cotação (30 dias)</span>
+                    </div>
+                    <StockBarChart data={stock.historicalDataPrice} />
                 </div>
-                <div className="flex justify-between text-sm mt-2 text-gray-300">
-                    <span>R$ {stock.fiftyTwoWeekLow.toFixed(2)}</span>
-                    <span>R$ {stock.fiftyTwoWeekHigh.toFixed(2)}</span>
-                </div>
-            </div>
-            <div className="mb-8 rounded-xl">
-                <div className="flex text-center justify-center bg-gray-700 py-4 text-gray-100 text-xl font-bold rounded-t-lg">
-                    <ChartColumnIncreasing />
-                    <h3 className="ml-4">Histórico de cotação (30 dias)</h3>
-                </div>
-                <StockBarChart data={stock.historicalDataPrice} />
             </div>
         </div>
     );
