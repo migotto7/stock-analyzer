@@ -36,9 +36,9 @@ export default function StockBarChart({ data }: StockBarChartProps) {
                     itemStyle={{ color: "#22d3ee", fontWeight: "bold" }}
                     labelStyle={{ color: "#fff", fontSize: 12 }}
                 />
-                <Legend wrapperStyle={{ color: "#ccc", fontSize: 12 }} />
-                <Area type="monotone" dataKey="min" fill="#8884d8" name="Mínimo" />
-                <Area type="monotone" dataKey="max" fill="#82ca9d" name="Máximo" />
+                <Legend wrapperStyle={{ color: "#000", fontSize: 12 }} />
+                <Area type="monotone" dataKey="min" stroke="#e41a1c" fill="#e41a1c" fillOpacity={0.3} name="Mínimo" />
+                <Area type="monotone" dataKey="max" stroke="#4daf4a" fill="#4daf4a" fillOpacity={0.3} name="Máximo" />
             </AreaChart>
         </ResponsiveContainer>
     )

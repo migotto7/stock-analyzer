@@ -13,7 +13,7 @@ export default function HomeButton() {
     return (
         <button onClick={handleClick} aria-label="home button">
             <TrendingUp
-                className="absolute top-6 left-6 w-10 h-10 text-white"
+                className="absolute top-6 left-6 w-8 h-8 sm:w-10 sm:h-10 text-white"
             />
         </button>
     )
