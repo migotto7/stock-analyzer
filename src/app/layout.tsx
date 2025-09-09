@@ -23,7 +23,6 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} antialiased`}
       >
-        <HomeButton />
         {children}
         <Analytics />
       </body>
