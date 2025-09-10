@@ -99,7 +99,7 @@ export default async function StockPage({ params }: StockProps) {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                     <div tabIndex={0} className="bg-gray-800 w-full px-3 py-3 md:px-4 md:py-5 rounded-xl">
-                        <span className="text-sm md:text-md text-gray-300">Faixa do dia</span>
+                        <span className="text-sm md:text-lg text-gray-300">Faixa do dia</span>
                         <div className="my-2 md:my-4">
                             <div className="w-full bg-gray-500 h-2 md:h-3 rounded overflow-hidden relative">
                                 <div
@@ -118,7 +118,7 @@ export default async function StockPage({ params }: StockProps) {
                         </div>
                     </div>
                     <div tabIndex={0} className="bg-gray-800 w-full px-3 py-3 md:px-4 md:py-5 rounded-xl">
-                        <span className="text-sm md:text-md text-gray-300">Faixa 52 semanas</span>
+                        <span className="text-sm md:text-lg text-gray-300">Faixa 52 semanas</span>
                         <div className="my-2 md:my-4">
                             <div className="w-full bg-gray-500 h-2 md:h-3 rounded overflow-hidden relative">
                                 <div
@@ -137,7 +137,7 @@ export default async function StockPage({ params }: StockProps) {
                         </div>
                     </div>
                     <div tabIndex={0} className="bg-gray-800 w-full px-3 py-3 md:px-4 md:py-5 rounded-xl">
-                        <span className="text-sm md:text-md text-gray-300">Preço justo</span>
+                        <span className="text-sm md:text-lg text-gray-300">Preço justo</span>
                         <div className="my-2 md:my-4">
                             <div className="w-full bg-gray-500 h-2 md:h-3 rounded overflow-hidden relative">
                                 <div
@@ -156,7 +156,7 @@ export default async function StockPage({ params }: StockProps) {
                     </div>
                 </div>
                 <div className="mb-8 rounded-xl">
-                    <div className="flex text-center justify-center bg-gray-800 py-4 text-gray-300 text-sm md:text-md rounded-t-lg">
+                    <div className="flex text-center justify-center bg-gray-800 py-4 text-gray-300 text-sm md:text-lg rounded-t-lg">
                         <ChartColumnIncreasing />
                         <span className="ml-2">Histórico de cotação (30 dias)</span>
                     </div>

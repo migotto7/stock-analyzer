@@ -44,15 +44,15 @@ export default function NavbarTicker() {
     }
 
     return (
-        <nav className="mx-auto max-w-5xl flex gap-2">
-            <Link href="/" aria-label="home button" className="h-16 md:h-20 w-16 md:w-[10%] flex items-center justify-center border-b border-l border-r rounded-b-2xl md:rounded-b-3xl border-white/20 
+        <nav className="mx-auto max-w-5xl flex md:gap-2">
+            <Link href="/" aria-label="home button" className="h-16 md:h-20 w-16 md:w-[10%] flex items-center justify-center md:border-b md:border-l md:border-r rounded-b-2xl md:rounded-b-3xl border-white/20 
                     hover:bg-gray-500 focus:bg-gray-500
                     hover:border-0 
                     transition-all duration-300 ease-in-out
                     hover:h-22 focus:h-22">
                 <Home className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </Link>
-            <a className="relative flex-1">
+            <div className="relative flex-1">
                 <div className="
                         w-full h-16 md:h-20 py-3 md:py-6 px-4 md:px-6 flex items-center border-b border-l border-r rounded-b-3xl border-white/20 text-white
                         placeholder-white/60 focus-within:outline-none focus-within:ring-1 focus-within:ring-white/30 shadow-lg
@@ -95,7 +95,7 @@ export default function NavbarTicker() {
                         ))}
                     </ul>
                 )}
-            </a>
+            </div>
         </nav>
     )
 }
