@@ -2,6 +2,8 @@
 Um analisador de ações construído com Next.js que consome dados da Brapi API apartir de uma API orquestradora.
 O objetivo é oferecer uma visualização clara e interativa de informações de ações da B3 e de mercados globais, ajudando investidores a tomar decisões melhores.
 
+https://ibo-stock-analyzer.vercel.app/
+
 ---
 
 ## ✨ Features
