@@ -68,9 +68,10 @@ export default function SearchBox() {
                 </div>
 
                 {suggestions.length > 0 && (
-                    <ul className="w-full max-w-[95%] sm:max-w-[500] md:max-w-[600px] lg:max-w-[800] mt-2 bg-background/55 divide-y divide-gray-400 rounded-xl shadow-lg overflow-hidden border border-white/20">
+                    <ul role="tablist" aria-label="Escolher ação que deseja consultar" className="w-full max-w-[95%] sm:max-w-[500] md:max-w-[600px] lg:max-w-[800] mt-2 bg-background/55 divide-y divide-gray-400 rounded-xl shadow-lg overflow-hidden border border-white/20">
                         {suggestions.map((s, idx) => (
                             <li
+                                role="tabpanel"
                                 key={idx}
                                 className="py-4 px-2 mx-2 sm:mx-4 my-3 flex items-center hover:bg-gray-800 cursor-pointer"
                             >

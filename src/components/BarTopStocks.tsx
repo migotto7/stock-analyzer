@@ -21,7 +21,7 @@ interface DataStock {
 export default function BarTopStocks() {
     const [data, setData] = useState<DataStock[]>([]);
     const x = useMotionValue(0);
-    const [paused, setPaused] = useState(false)
+    const [isPaused, setIsPaused] = useState(false)
     const router = useRouter();
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function BarTopStocks() {
     }, []);
 
     useAnimationFrame((t, delta) => {
-        if (!paused) {
+        if (!isPaused) {
             const move = (delta / 1000) * 50;
             const totalWidth = Math.max(data.length * 200, 1);
             x.set((x.get() - move) % totalWidth);
@@ -51,8 +51,8 @@ export default function BarTopStocks() {
             <motion.div
                 style={{ x }}
                 className="flex gap-8 py-1 sm:py-2"
-                onMouseEnter={() => setPaused(true)}
-                onMouseLeave={() => setPaused(false)}
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
             >
                 {[...data, ...data].map((stock, i) => (
                     <div key={i}

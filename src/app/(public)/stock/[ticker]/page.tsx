@@ -2,7 +2,7 @@ import NavbarTicker from "@/components/NavbarTicker";
 import StockBarChart from "@/components/StockBarChart";
 import { Tooltip } from "@/components/Tooltip";
 import { HistoricalDataPrice } from "@/type/HistoricalDataPrice";
-import { MoveUp, MoveDown, ChartColumnIncreasing, DollarSign, Percent, Landmark, HandCoins, Triangle, HelpCircle } from "lucide-react";
+import { MoveUp, MoveDown, ChartColumnIncreasing, DollarSign, Percent, Landmark, HandCoins, Triangle, HelpCircle, Heart } from "lucide-react";
 import Image from "next/image";
 
 interface StockProps {
@@ -53,13 +53,16 @@ export default async function StockPage({ params }: StockProps) {
         <div>
             <NavbarTicker />
             <div className="p-4 md:p-8 max-w-5xl mx-auto bg-background/55 backdrop-blur-md md:border border-white/20 rounded-xl my-6">
-                <div tabIndex={0} className="flex items-center mb-6">
-                    <Image src={stock.logo} alt={stock.shortName} width={50} height={50} className="mr-6 rounded" />
-                    <h1 className="text-xl md:text-3xl font-bold text-gray-100">{stock.longName} ({stock.ticker})</h1>
+                <div className="flex items-center mb-6 justify-between">
+                    <div className="flex items-center gap-5">
+                        <Image src={stock.logo} alt={stock.shortName} width={50} height={50} className="rounded" />
+                        <h1 className="text-xl md:text-3xl font-bold text-gray-100">{stock.longName} ({stock.ticker})</h1>
+                    </div>
+                    <Heart color="white" size={32} />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-                    <div tabIndex={0} className="bg-gray-800 w-full rounded-xl flex items-center px-3 py-4 gap-1">
+                    <div className="bg-gray-800 w-full rounded-xl flex items-center px-3 py-4 gap-1">
                         <div className="bg-green-900 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center">
                             <DollarSign className="text-green-500" />
                         </div>
@@ -68,7 +71,7 @@ export default async function StockPage({ params }: StockProps) {
                             <h2 className="text-white text-lg md:text-xl font-semibold pt-1 md:pt-2">R$ {stock.regularMarketPrice.toFixed(2)}</h2>
                         </div>
                     </div>
-                    <div tabIndex={0} className="bg-gray-800 w-full rounded-xl flex items-center px-3 py-4 gap-1">
+                    <div className="bg-gray-800 w-full rounded-xl flex items-center px-3 py-4 gap-1">
                         <div className="bg-emerald-900 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center">
                             <Percent className="text-emerald-500" />
                         </div>
@@ -76,14 +79,13 @@ export default async function StockPage({ params }: StockProps) {
                             <span className="text-sm md:text-md text-gray-300">Variação</span>
                             <h2 className={`text-lg md:text-xl font-semibold pt-1 md:pt-2 flex items-center ${stock.regularMarketChange >= 0 ? "text-green-500" : "text-red-500"}`}>
                                 {stock.regularMarketChangePercent.toFixed(2)}%
-
                             </h2>
                         </div>
                         <div className={`rounded-4xl p-1 flex items-center justify-center ${stock.regularMarketChange >= 0 ? "text-green-500 bg-green-900" : "text-red-500 bg-red-900"}`}>
                             {stock.regularMarketChange >= 0 ? <MoveUp /> : <MoveDown />}
                         </div>
                     </div>
-                    <div tabIndex={0} className="bg-gray-800 w-full rounded-xl flex items-center px-3 py-4 gap-1">
+                    <div className="bg-gray-800 w-full rounded-xl flex items-center px-3 py-4 gap-1">
                         <div className="bg-teal-900 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center">
                             <Landmark className="text-teal-500" />
                         </div>
@@ -92,7 +94,7 @@ export default async function StockPage({ params }: StockProps) {
                             <h2 className="text-white text-lg md:text-xl font-semibold pt-1 md:pt-2">{stock.priceEarnings.toFixed(2)}</h2>
                         </div>
                     </div>
-                    <div tabIndex={0} className="bg-gray-800 w-full rounded-xl flex items-center px-3 py-4 gap-1">
+                    <div className="bg-gray-800 w-full rounded-xl flex items-center px-3 py-4 gap-1">
                         <div className="bg-orange-900 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center">
                             <HandCoins className="text-orange-500" />
                         </div>
@@ -103,13 +105,13 @@ export default async function StockPage({ params }: StockProps) {
                     </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-                    <div tabIndex={0} className="bg-gray-800 w-full px-3 py-4 md:px-4 rounded-xl flex flex-col justify-center gap-y-3 md:gap-1">
+                    <div className="bg-gray-800 w-full px-3 py-4 md:px-4 rounded-xl flex flex-col justify-center gap-y-3 md:gap-1">
                         <div className="flex items-center justify-between">
                             <span className="text-sm md:text-lg text-gray-300">Faixa do dia</span>
                             <Tooltip title="Faixa do dia" text="Indica o valor mais baixo e o mais alto que a ação atingiu no dia e aonde se encontra o preço atual.">
                                 <HelpCircle className="w-6 h-6 text-gray-400 cursor-pointer" />
                             </Tooltip>
-                        </div> 
+                        </div>
                         <div className="my-2 md:my-4">
                             <div className="w-full bg-gray-500 h-2 md:h-3 rounded overflow-visible relative">
                                 <div
@@ -138,13 +140,13 @@ export default async function StockPage({ params }: StockProps) {
                             </div>
                         </div>
                     </div>
-                    <div tabIndex={0} className="bg-gray-800 w-full px-3 py-4 md:px-4 rounded-xl flex flex-col justify-center gap-y-3 md:gap-1">
+                    <div className="bg-gray-800 w-full px-3 py-4 md:px-4 rounded-xl flex flex-col justify-center gap-y-3 md:gap-1">
                         <div className="flex items-center justify-between">
                             <span className="text-sm md:text-lg text-gray-300">Faixa 52 semanas</span>
                             <Tooltip title="Faixa 52 semanas" text="Indica o valor mais baixo e o mais alto que a ação atingiu nos últimos 12 meses e aonde se encontra o preço atual, ajudando a entender a volatilidade e possíveis pontos de suporte e resistência.">
                                 <HelpCircle className="w-6 h-6 text-gray-400 cursor-pointer" />
                             </Tooltip>
-                        </div>  
+                        </div>
                         <div className="my-2 md:my-4">
                             <div className="w-full bg-gray-500 h-2 md:h-3 rounded overflow-visible relative">
                                 <div
@@ -173,7 +175,7 @@ export default async function StockPage({ params }: StockProps) {
                             </div>
                         </div>
                     </div>
-                    <div tabIndex={0} className="bg-gray-800 w-full px-3 py-4 md:px-4 rounded-xl flex flex-col justify-center gap-y-3 md:gap-1">
+                    <div className="bg-gray-800 w-full px-3 py-4 md:px-4 rounded-xl flex flex-col justify-center gap-y-3 md:gap-1">
                         <div className="flex items-center justify-between">
                             <span className="text-sm md:text-lg text-gray-300">Preço justo</span>
                             <Tooltip title="Preço justo" text="Calculado multiplicando o Lucro por Ação (EPS) pelo Índice P/L (Price to Earnings). Fórmula: EPS x P/L">
